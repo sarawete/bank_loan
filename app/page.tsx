@@ -4,11 +4,11 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className=" min-h-screen pt-32 ">
+    <main className=" min-h-screen">
       <Header/>
-      <Hero/>
-      
-
+      <div className="">
+        <Hero />
+      </div>
     </main>
   );
 }

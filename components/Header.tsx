@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Globe } from 'lucide-react';
+import Image from 'next/image';
 
 interface HeaderProps {
   className?: string;
@@ -9,17 +10,12 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   return (
     <header className={`w-full bg-[#005072] relative z-50 ${className}`}>
-      <div className="container mx-auto px-4 lg:px-6">
-        <nav className="flex items-center justify-between h-16 lg:h-24">
+      <div className=" mx-auto px-4 lg:px-16">
+        <nav className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-baseline space-x-0">
-              <span className="text-[#99D1FF] text-lg lg:text-xl font-normal">
-                Loan
-              </span>
-              <span className="text-black text-2xl lg:text-3xl font-normal">
-                Simulator
-              </span>
+              <Image src='/images/loan_logo.png' width={180} height={180} alt='loan Simulator logo' />
             </Link>
           </div>
 
@@ -33,10 +29,10 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
 
             {/* CTA Button */}
             <Link
-              href="/start"
+              href="/login"
               className="bg-[#8FC920] text-white font-bold text-sm lg:text-xl px-6 lg:px-8 py-2.5 lg:py-3 rounded-lg hover:bg-[#7FB519] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-              Start now
+              Connexion
             </Link>
           </div>
         </nav>
