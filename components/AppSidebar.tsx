@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 // Menu items data
 const menuItems = [
@@ -61,12 +62,25 @@ const bottomMenuItems = [
   },
   {
     title: "Logout",
-    url: "/",
+    url: "#",
     icon: LogOut,
+    onClick: true,
   },
 ]
 
 export function AppSidebar() {
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' })
+      router.push('/')
+    } catch (error) {
+      console.error('Logout error:', error)
+      router.push('/')
+    }
+  }
+
   return (
     <Sidebar className="border-r border-[#E4E4E4]">
       <SidebarHeader className="p-6">
@@ -113,11 +127,22 @@ export function AppSidebar() {
         <SidebarMenu className="space-y-1">
           {bottomMenuItems.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild className="h-12 px-3 text-lg font-medium text-[#4B4B4B] hover:bg-gray-50">
-                <a href={item.url}>
-                  <item.icon className="h-7 w-7" />
-                  <span>{item.title}</span>
-                </a>
+              <SidebarMenuButton 
+                asChild={!item.onClick} 
+                className="h-12 px-3 text-lg font-medium text-[#4B4B4B] hover:bg-gray-50"
+                onClick={item.onClick ? handleLogout : undefined}
+              >
+                {item.onClick ? (
+                  <div className="flex items-center cursor-pointer">
+                    <item.icon className="h-7 w-7" />
+                    <span>{item.title}</span>
+                  </div>
+                ) : (
+                  <a href={item.url}>
+                    <item.icon className="h-7 w-7" />
+                    <span>{item.title}</span>
+                  </a>
+                )}
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -13,7 +14,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 
 export default function RegisterForm() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
   const [formData, setFormData] = useState({
     email: "",
     fullName: "",
@@ -22,10 +26,44 @@ export default function RegisterForm() {
     acceptTerms: false,
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    // Handle form submission here
+    
+    if (!formData.acceptTerms) {
+      setError("Please accept the terms and conditions")
+      return
+    }
+
+    setLoading(true)
+    setError("")
+
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          fullName: formData.fullName,
+          password: formData.password,
+          role: formData.role,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed')
+      }
+
+      // Registration successful, redirect to login
+      router.push('/login?message=Registration successful, please log in')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -83,6 +121,13 @@ export default function RegisterForm() {
                 Create your account
               </h1>
             </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+                {error}
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -175,9 +220,10 @@ export default function RegisterForm() {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#8FC920] hover:bg-[#7FB519] text-white text-base font-medium rounded-md transition-colors"
+                disabled={loading}
+                className="w-full h-12 bg-[#8FC920] hover:bg-[#7FB519] text-white text-base font-medium rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Sign up
+                {loading ? "Creating account..." : "Sign up"}
               </Button>
 
               {/* Terms Checkbox */}

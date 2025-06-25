@@ -2,7 +2,8 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -12,17 +13,56 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 
 export default function LoginForm() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const message = searchParams.get('message')
+    if (message) {
+      setSuccess(message)
+    }
+  }, [searchParams])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Login form submitted:", formData)
-    // Handle form submission here
+    setLoading(true)
+    setError("")
+    setSuccess("")
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed')
+      }
+
+      // Login successful, redirect to dashboard
+      router.push('/dashboard')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -78,6 +118,20 @@ export default function LoginForm() {
             <div>
               <h1 className="text-[#1E1E1E] text-2xl lg:text-3xl font-bold leading-tight">Sign in to your account</h1>
             </div>
+
+            {/* Success Message */}
+            {success && (
+              <div className="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-md">
+                {success}
+              </div>
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+                {error}
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -143,9 +197,10 @@ export default function LoginForm() {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#8FC920] hover:bg-[#7FB519] text-white text-base font-bold rounded-md transition-colors"
+                disabled={loading}
+                className="w-full h-12 bg-[#8FC920] hover:bg-[#7FB519] text-white text-base font-bold rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Sign in
+                {loading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
 

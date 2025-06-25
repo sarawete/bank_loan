@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1750871855238",
+    "email": "keubouhilary@gmail.com",
+    "fullName": "Hilary Donfack",
+    "password": "$2b$10$6w/t/my2mkF0ixsoV9ghYO.g4VF467df.9nASMiBisICWQb1tcctW",
+    "role": "user",
+    "createdAt": "2025-06-25T17:17:35.238Z"
+  },
+  {
+    "id": "1750872052020",
+    "email": "audrey@gmail.com",
+    "fullName": "Hilary audrey",
+    "password": "$2b$10$sed1yaEp7JyEmnUGtRcuE.RJ3UGVDHWQfXZtSN6T2IoaDIJi3v/cu",
+    "role": "administrator",
+    "createdAt": "2025-06-25T17:20:52.020Z"
+  }
+]
