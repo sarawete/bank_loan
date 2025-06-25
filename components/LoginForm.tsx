@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 
-export default function LoginForm() {
+function LoginFormContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [showPassword, setShowPassword] = useState(false)
@@ -217,5 +217,13 @@ export default function LoginForm() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginForm() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#005072] flex items-center justify-center"><div className="text-white">Loading...</div></div>}>
+      <LoginFormContent />
+    </Suspense>
   )
 }
