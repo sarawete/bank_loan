@@ -4,6 +4,40 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-primary-50:  #e6f0fb;
+  --color-primary-100: #cce0f7;
+  --color-primary-200: #99c2ef;
+  --color-primary-300: #66a3e8;
+  --color-primary-400: #3385e0;
+  --color-primary-500: #2c83ca; /* couleur de base */
+  --color-primary-600: #256faf;
+  --color-primary-700: #1e5a93;
+  --color-primary-800: #174678;
+  --color-primary-900: #10315c;
+  --color-primary-950: #0a1f3c;
+  --color-secondary-50:  #f7ffe5;
+  --color-secondary-100: #edffcc;
+  --color-secondary-200: #ddff99;
+  --color-secondary-300: #ceff66;
+  --color-secondary-400: #c3ff47;
+  --color-secondary-500: #d1ff78; /* couleur de base */
+  --color-secondary-600: #a7cc5f;
+  --color-secondary-700: #7d9946;
+  --color-secondary-800: #53662e;
+  --color-secondary-900: #2a3317;
+  --color-secondary-950: #151a0c;
+  --color-tertiary-50:  #e1f2f7;
+  --color-tertiary-100: #b3dce8;
+  --color-tertiary-200: #85c5d8;
+  --color-tertiary-300: #56adc9;
+  --color-tertiary-400: #2896ba;
+  --color-tertiary-500: #005072;  /* couleur de base */
+  --color-tertiary-600: #00405b;
+  --color-tertiary-700: #003045;
+  --color-tertiary-800: #00202e;
+  --color-tertiary-900: #001018;
+  --color-tertiary-950: #00080c;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -118,5 +152,17 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-primary {
+    /* un gradient du clair (100) au foncé (700) */
+    background-image: linear-gradient(
+      to right,
+      var(--color-primary-100),
+      var(--color-primary-500),
+      var(--color-primary-700)
+    );
   }
 }

@@ -120,9 +120,9 @@ function generateIntegrations(count: number): Integration[] {
   const iconKeys = Object.keys(iconMap) as (keyof typeof iconMap)[]
 
   for (let i = 0; i < count; i++) {
-    const iconKey = iconKeys[Math.floor(Math.random() * iconKeys.length)]
-    const category = categories[Math.floor(Math.random() * (categories.length - 1)) + 1] // Exclude 'All'
-    const color = colorPalette[Math.floor(Math.random() * colorPalette.length)]
+    const iconKey = iconKeys[i % iconKeys.length]
+    const category = categories[((i % (categories.length - 1)) + 1)] // Exclude 'All'
+    const color = colorPalette[i % colorPalette.length]
 
     integrations.push({
       id: `${i + 1}`,
