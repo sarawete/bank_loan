@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-baseline space-x-0">
-              <Image src='/images/loan_logo.png' width={180} height={180} alt='loan Simulator logo' />
+              <Image src='/images/loan_logo.png' width={180} height={64} alt='loan Simulator logo' />
             </Link>
           </div>
 

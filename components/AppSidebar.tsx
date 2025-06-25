@@ -87,7 +87,7 @@ export function AppSidebar() {
         {/* Logo */}
         <div className="flex items-baseline gap-1">
             <Link href="/" className="flex items-baseline space-x-0">
-              <Image src='/images/loan_logo.png' width={180} height={180} alt='loan Simulator logo' />
+              <Image src='/images/loan_logo.png' width={180} height={64} alt='loan Simulator logo' />
             </Link>
         </div>
       </SidebarHeader>
