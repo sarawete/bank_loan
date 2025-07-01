@@ -1,7 +1,7 @@
 export default function ProfilePage() {
   return (
     <div className="flex-1 space-y-8 p-6">
-      <div className="space-y-1">
+      <div className="space-y-1 px-12">
         <h1 className="text-2xl font-bold text-black">Profile</h1>
         <p className="text-base text-[#4B4B4B]">
           Manage your personal information and account details.

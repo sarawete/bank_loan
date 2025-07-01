@@ -1,6 +1,6 @@
 "use client"
 
-import { LayoutDashboard, Smartphone, BrainCog, MessageCircle, Bell, Settings, UserRound, LogOut } from "lucide-react"
+import { LayoutDashboard, Smartphone, MessageCircle, Bell, Settings, UserRound, LogOut, FileBoxIcon, Folder, FolderArchive } from "lucide-react"
 
 import {
   Sidebar,
@@ -18,36 +18,61 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
 
-// Menu items data
-const menuItems = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
-    isActive: true,
-  },
-  {
-    title: "Connected devices",
-    url: "/devices",
-    icon: Smartphone,
-  },
-  {
-    title: "AI Insights",
-    url: "/ai-insights",
-    icon: BrainCog,
-  },
-  {
-    title: "Chat",
-    url: "/chat",
-    icon: MessageCircle,
-  },
-  {
-    title: "Notifications",
-    url: "/notifications",
-    icon: Bell,
-  },
-]
+// Menu items data based on user role
+const getUserMenuItems = (userRole: string) => {
+  if (userRole === 'administrator') {
+    return [
+      {
+        title: "Admin Dashboard",
+        url: "/dashboard/admin",
+        icon: LayoutDashboard,
+        isActive: true,
+      },
+      {
+        title: "Submissions",
+        url: "/submissions",
+        icon: FolderArchive,
+      },
+      {
+        title: "Chat",
+        url: "/chat",
+        icon: MessageCircle,
+      },
+      {
+        title: "Notifications",
+        url: "/notifications",
+        icon: Bell,
+      },
+    ]
+  }
+  
+  // Default user menu items
+  return [
+    {
+      title: "Dashboard",
+      url: "/dashboard/user",
+      icon: LayoutDashboard,
+      isActive: true,
+    },
+    {
+      title: "My submissions",
+      url: "/my-submissions",
+      icon: Folder,
+    },
+    {
+      title: "Chat",
+      url: "/chat",
+      icon: MessageCircle,
+    },
+    {
+      title: "Notifications",
+      url: "/notifications",
+      icon: Bell,
+    },
+  ]
+}
 
 const bottomMenuItems = [
   {
@@ -70,6 +95,52 @@ const bottomMenuItems = [
 
 export function AppSidebar() {
   const router = useRouter()
+  const [userRole, setUserRole] = useState<string>('user')
+  
+  useEffect(() => {
+    // Get user role from cookie
+    const getUserRole = () => {
+      try {
+        console.log('All cookies:', document.cookie) // Debug log
+        const cookies = document.cookie.split(';')
+        console.log('Cookies array:', cookies) // Debug log
+        
+        // Try to get role from the dedicated user_role cookie first
+        const roleCookie = cookies.find(cookie => cookie.trim().startsWith('user_role='))
+        console.log('Role cookie found:', roleCookie) // Debug log
+        
+        if (roleCookie) {
+          const role = roleCookie.split('=')[1].trim()
+          console.log('Role from cookie:', role) // Debug log
+          return role || 'user'
+        }
+        
+        // Fallback: try to get from user_session cookie (though it's httpOnly)
+        const sessionCookie = cookies.find(cookie => cookie.trim().startsWith('user_session='))
+        console.log('Session cookie found:', sessionCookie) // Debug log
+        
+        if (sessionCookie) {
+          const cookieValue = sessionCookie.split('=')[1]
+          console.log('Cookie value:', cookieValue) // Debug log
+          const sessionData = JSON.parse(cookieValue)
+          console.log('Session data:', sessionData) // Debug log
+          console.log('Role from session:', sessionData.role) // Debug log
+          return sessionData.role || 'user'
+        }
+      } catch (error) {
+        console.error('Error parsing user session:', error)
+        console.error('Error details:', error)
+      }
+      return 'user'
+    }
+    
+    const role = getUserRole()
+    console.log('Final detected role:', role) // Debug log
+    console.log('Menu items will be for role:', role) // Debug log
+    setUserRole(role)
+  }, [])
+  
+  const menuItems = getUserMenuItems(userRole)
 
   const handleLogout = async () => {
     try {
@@ -99,7 +170,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {menuItems.map((item) => (
+              {(menuItems ?? []).map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild

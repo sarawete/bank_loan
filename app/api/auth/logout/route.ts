@@ -15,6 +15,14 @@ export async function POST() {
       maxAge: 0, // Immediately expire
     })
 
+    // Clear the user role cookie
+    response.cookies.set('user_role', '', {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 0, // Immediately expire
+    })
+
     return response
 
   } catch (error) {

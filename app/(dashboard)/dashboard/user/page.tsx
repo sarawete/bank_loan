@@ -1,15 +1,13 @@
-"use client"
-
 import Image from "next/image"
 
-export function DashboardContent() {
+export default function Page() {
   return (
     <div className="flex-1 space-y-8 p-6">
       {/* Page Header */}
-      <div className="space-y-1">
+      <div className="space-y-1 px-12">
         <h1 className="text-2xl font-bold text-black">Dashboard</h1>
         <p className="text-base text-[#4B4B4B]">
-          View your farm's performance at a glance, including device stats and AI insights.
+          View your loan submissions and their statuses
         </p>
       </div>
 

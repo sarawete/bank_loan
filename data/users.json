@@ -1,18 +1,18 @@
 [
   {
-    "id": "1750871855238",
+    "id": "1751362144026",
     "email": "keubouhilary@gmail.com",
     "fullName": "Hilary Donfack",
-    "password": "$2b$10$6w/t/my2mkF0ixsoV9ghYO.g4VF467df.9nASMiBisICWQb1tcctW",
+    "password": "$2b$10$wokuqutgjQPFC4B9juz7se1edqURSYnGMebwHAaar7cSyVaMMmqDW",
     "role": "user",
-    "createdAt": "2025-06-25T17:17:35.238Z"
+    "createdAt": "2025-07-01T09:29:04.026Z"
   },
   {
-    "id": "1750872052020",
+    "id": "1751362178206",
     "email": "audrey@gmail.com",
-    "fullName": "Hilary audrey",
-    "password": "$2b$10$sed1yaEp7JyEmnUGtRcuE.RJ3UGVDHWQfXZtSN6T2IoaDIJi3v/cu",
+    "fullName": "Hilary ",
+    "password": "$2b$10$FEklHBhNtbcfPYYFbZcjxuJaYpOXseOXMLrisorPcBbvCJcCWZSTK",
     "role": "administrator",
-    "createdAt": "2025-06-25T17:20:52.020Z"
+    "createdAt": "2025-07-01T09:29:38.206Z"
   }
 ]

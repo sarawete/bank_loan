@@ -56,8 +56,12 @@ function LoginFormContent() {
         throw new Error(data.error || 'Login failed')
       }
 
-      // Login successful, redirect to dashboard
-      router.push('/dashboard')
+      // Login successful, redirect based on user role
+      if (data.user.role === 'administrator') {
+        router.push('/dashboard/admin')
+      } else {
+        router.push('/dashboard/user')
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {

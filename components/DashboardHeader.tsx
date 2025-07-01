@@ -2,6 +2,7 @@
 
 import { Search, Bell, UserRound, Globe, ChevronUp } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 export function DashboardHeader() {
   return (
@@ -20,21 +21,21 @@ export function DashboardHeader() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 sm:gap-10">
         {/* Notifications */}
         <div className="relative">
-          <Bell className="h-7 w-7 text-[#4B4B4B]" />
+          <Link href="/notifications"><Bell className="h-7 w-7 text-[#4B4B4B]" /></Link>
           <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#DE3D31] text-xs font-normal text-white">
             4
           </div>
         </div>
 
         {/* User Profile */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center">
           <UserRound className="h-7 w-7 text-[#4B4B4B]" />
-          <span className="text-primary-500 text-base font-medium">
+{/*         <span className="text-primary-500 text-base font-medium">
             Sara Nguepnang
-          </span>
+          </span> */}
         </div>
 
         {/* Language Selector */}
