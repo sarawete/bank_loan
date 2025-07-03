@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import submissionsData from '@/data/submissions.json';
+import submissionsDataRaw from '@/data/submissions.json';
 import { useAuth } from '@/hooks/use-auth';
 
 interface Submission {
@@ -33,6 +33,7 @@ export default function Page() {
     return <div>Please login to access this page</div>;
   }
 
+  const submissionsData: Submission[] = submissionsDataRaw as Submission[];
   const allSubmissions: Submission[] = submissionsData.map((s) => ({
     ...s,
     status: s.status as Submission['status'],

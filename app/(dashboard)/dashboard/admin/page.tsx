@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import submissionsData from '@/data/submissions.json';
+import submissionsData from '@/data/submissions.json' assert { type: "json" };
 
 interface Submission {
   id: string;
@@ -21,7 +21,7 @@ interface Submission {
 }
 
 export default function Page() {
-  const submissions: Submission[] = submissionsData.map((s) => ({
+  const submissions: Submission[] = (submissionsData as Submission[]).map((s) => ({
     ...s,
     status: s.status as Submission['status'],
   }));

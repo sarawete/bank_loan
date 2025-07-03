@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import submissionsData from "@/data/submissions.json";
+import submissionsDataRaw from "@/data/submissions.json";
+const submissionsData: Submission[] = submissionsDataRaw as Submission[];
 import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
 
