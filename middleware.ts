@@ -7,8 +7,7 @@ export function middleware(request: NextRequest) {
   // Check if the request is for dashboard routes
   if (pathname.startsWith('/dashboard/user') || 
       pathname.startsWith('/dashboard/admin') ||
-      pathname.startsWith('/devices') || 
-      pathname.startsWith('/ai-insights') || 
+      pathname.startsWith('/new-submissions') ||
       pathname.startsWith('/chat') || 
       pathname.startsWith('/notifications') || 
       pathname.startsWith('/settings') || 
@@ -41,8 +40,7 @@ export const config = {
   matcher: [
     '/dashboard/user/:path*',
     '/dashboard/admin/:path*',
-    '/submissions/:path*',
-    '/my-submissions/:path*',
+    '/new-submissions/:path*',
     '/chat/:path*',
     '/notifications/:path*',
     '/settings/:path*',

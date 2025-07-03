@@ -30,11 +30,6 @@ const getUserMenuItems = (userRole: string) => {
         isActive: true,
       },
       {
-        title: "Submissions",
-        url: "/submissions",
-        icon: FolderArchive,
-      },
-      {
         title: "Chat",
         url: "/chat",
         icon: MessageCircle,
@@ -56,8 +51,8 @@ const getUserMenuItems = (userRole: string) => {
       isActive: true,
     },
     {
-      title: "My submissions",
-      url: "/my-submissions",
+      title: "New submission",
+      url: "/new-submissions",
       icon: Folder,
     },
     {
