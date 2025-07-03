@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import submissionsDataRaw from '@/data/submissions.json';
 import { useAuth } from '@/hooks/use-auth';
+import { Trash } from 'lucide-react';
 
 interface Submission {
   id: string;
@@ -117,9 +118,9 @@ export default function Page() {
                   <TableCell>{submission.loanDuration} months</TableCell>
                   <TableCell>{getStatusBadge(submission.status)}</TableCell>
                   <TableCell>
-                    <Link href={`/submissions/${submission.id}`}>
-                      <Button variant="outline" size="sm">
-                        View
+                    <Link href={''}>
+                      <Button className='bg-red-500 hover:bg-red-600 text-white'>
+                        <Trash/>
                       </Button>
                     </Link>
                   </TableCell>

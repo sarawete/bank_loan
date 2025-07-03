@@ -1,3 +1,26 @@
 [
-    
+  {
+    "id": "1751534555178",
+    "submittedAt": "2025-07-03T09:22:35.178Z",
+    "status": "pending",
+    "userId": "1751362144026",
+    "userEmail": "keubouhilary@gmail.com",
+    "firstName": "Hilary",
+    "lastName": "Donfack",
+    "email": "keubouhilary@gmail.com",
+    "phone": "+237690188239",
+    "dateOfBirth": "2005-02-03",
+    "employmentStatus": "self-employed",
+    "employer": "orange",
+    "jobTitle": "marketing agent",
+    "monthlyIncome": "125555548",
+    "employmentDuration": "45",
+    "monthlyExpenses": "150000",
+    "existingLoans": "500000",
+    "loanAmount": "45000000",
+    "loanDuration": "124",
+    "loanPurpose": "consolidation",
+    "additionalInfo": "",
+    "uploadedFiles": []
+  }
 ]
