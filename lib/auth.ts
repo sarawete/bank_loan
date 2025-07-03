@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import bcrypt from 'bcryptjs'
+import { cookies } from 'next/headers'
 
 export interface User {
   id: string
@@ -84,4 +85,29 @@ export async function authenticateUser(email: string, password: string): Promise
   }
 
   return user
+}
+
+export async function getCurrentUser(): Promise<User | null> {
+  try {
+    const cookieStore = await cookies()
+    const userSession = cookieStore.get('user_session')?.value
+    
+    if (!userSession) {
+      return null
+    }
+
+    const sessionData = JSON.parse(userSession)
+    
+    // Find the complete user data using the ID from the session
+    const user = getUsers().find(u => u.id === sessionData.id)
+    
+    if (!user) {
+      return null
+    }
+
+    return user
+  } catch (error) {
+    console.error('Error getting current user:', error)
+    return null
+  }
 }

@@ -4,6 +4,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+import { useAuth } from "@/hooks/use-auth"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -52,6 +53,7 @@ interface LoanSubmissionDialogProps {
 
 export function LoanSubmissionDialog({ open, onOpenChange }: LoanSubmissionDialogProps) {
   const [uploadedFiles, setUploadedFiles] = React.useState<File[]>([])
+  const { user, isAuthenticated } = useAuth()
 
   const form = useForm<LoanSubmissionForm>({
     resolver: zodResolver(loanSubmissionSchema),
@@ -76,6 +78,12 @@ export function LoanSubmissionDialog({ open, onOpenChange }: LoanSubmissionDialo
   })
 
   const onSubmit = async (data: LoanSubmissionForm) => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      alert("Please login to submit a loan application.")
+      return
+    }
+
     try {
       const submissionData = {
         ...data,

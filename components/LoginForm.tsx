@@ -56,6 +56,13 @@ function LoginFormContent() {
         throw new Error(data.error || 'Login failed')
       }
 
+      // Store user data in localStorage for the custom hook
+      localStorage.setItem('user_data', JSON.stringify({
+        id: data.user.id,
+        email: data.user.email,
+        role: data.user.role
+      }))
+
       // Login successful, redirect based on user role
       if (data.user.role === 'administrator') {
         router.push('/dashboard/admin')

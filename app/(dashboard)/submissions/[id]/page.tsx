@@ -30,13 +30,15 @@ interface Submission {
   uploadedFiles: string[];
 }
 
-export default function SubmissionDetailPage({ params }: { params: { id: string } }) {
+export default async function SubmissionDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  
   const submission: Submission | undefined = submissionsData
     .map(s => ({
       ...s,
       status: s.status as Submission['status'],
     }))
-    .find(s => s.id === params.id);
+    .find(s => s.id === id);
 
   if (!submission) {
     return notFound();
